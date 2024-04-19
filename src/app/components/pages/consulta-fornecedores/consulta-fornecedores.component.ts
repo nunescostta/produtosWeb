@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment';
+import { getAuthorization } from '../../../helpers/auth.helpers';
 
 @Component({
   selector: 'app-consulta-fornecedores',
@@ -30,7 +31,7 @@ export class ConsultaFornecedoresComponent implements OnInit {
   ngOnInit(): void {
 
     //fazer uma requisiçaõ GET para API
-    this.httpClient.get(`${environment.apiProdutos}/fornecedores`)
+    this.httpClient.get(`${environment.apiProdutos}/fornecedores`, { headers: getAuthorization()} )
       .subscribe( //capturar o retorno da API
         {
           //capturando o retorno de SUCESSO da API

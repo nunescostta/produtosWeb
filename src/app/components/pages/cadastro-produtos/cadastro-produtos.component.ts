@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { getAuthorization } from '../../../helpers/auth.helpers';
 
 @Component({
   selector: 'app-cadastro-produtos',
@@ -51,7 +52,7 @@ export class CadastroProdutosComponent implements OnInit {
    
     //fazendo requisicao POST para o endpoint de cadastro de produtos
     this.httpClient.post(`${environment.apiProdutos}/produtos`,
-    this.form.value, {responseType: 'text'})
+    this.form.value, {responseType: 'text', headers: getAuthorization()})
     .subscribe({
       next: (data) => {
        //capturando a mensagem obtida da api
@@ -71,7 +72,8 @@ export class CadastroProdutosComponent implements OnInit {
   ngOnInit(): void {
 
     //fazer uma requisiçaõ GET para API
-    this.httpClient.get(`${environment.apiProdutos}/fornecedores`)
+    this.httpClient.get(`${environment.apiProdutos}/fornecedores`, 
+    { headers: getAuthorization()})
       .subscribe({ //capturar o retorno da API
 
         //capturando o retorno de SUCESSO da API

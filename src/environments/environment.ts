@@ -2,7 +2,10 @@
 // nomes das variaveis de ambientes  do projeto
 export const environment = {
 
-    apiProdutos: ''
+    apiProdutos: '',
+    apiUsuarios: '',
+    chaveCriptografia: '',
+    usuarioAutenticado: ''
 
 
 };

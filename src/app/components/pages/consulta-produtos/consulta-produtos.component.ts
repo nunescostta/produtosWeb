@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { RouterLink } from '@angular/router';
+import { getAuthorization } from '../../../helpers/auth.helpers';
 
 
 @Component({
@@ -33,7 +34,7 @@ export class ConsultaProdutosComponent implements OnInit {
   ngOnInit(): void {
    
     //fazendo uma requisição para o serviço de consulta de produtos da API
-    this.httpClient.get(`${environment.apiProdutos}/produtos`)
+    this.httpClient.get(`${environment.apiProdutos}/produtos`, { headers: getAuthorization()})
       .subscribe(
         {
           next: (data) => {
@@ -50,8 +51,8 @@ export class ConsultaProdutosComponent implements OnInit {
   onDelete(id: number): void{
    if(confirm('Deseja realmente EXCLUIR o produto Selecionado ?')){
     //fazendo uma requisição para excluir produto na API
-    this.httpClient.delete(`${environment.apiProdutos}/produtos/${id}`,
-     {responseType: 'text'})
+    this.httpClient.delete(`${environment.apiProdutos}/produtos/${id},`,
+     {responseType: 'text', headers: getAuthorization()})
     .subscribe(
       {
         next: (data) => {

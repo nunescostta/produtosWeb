@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../../../environments/environment';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { getAuthorization } from '../../../helpers/auth.helpers';
 
 
 @Component({
@@ -59,7 +60,7 @@ export class EdicaoProdutosComponent implements OnInit {
     const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
        
     //consultando os dados do produto na API
-    this.httpClient.get(`${environment.apiProdutos}/produtos/${id}`)
+    this.httpClient.get(`${environment.apiProdutos}/produtos/${id}`, { headers: getAuthorization()})
       .subscribe({
           next: (data: any) => {
            
@@ -76,7 +77,7 @@ export class EdicaoProdutosComponent implements OnInit {
       });  
      
     //fazendo uma chamada GET para consulta de fornecedores na API
-    this.httpClient.get(`${environment.apiProdutos}/fornecedores`)
+    this.httpClient.get(`${environment.apiProdutos}/fornecedores`, { headers: getAuthorization()})
       .subscribe({
         next: (data) => {
           this.fornecedores = data as any[];
@@ -93,7 +94,7 @@ export class EdicaoProdutosComponent implements OnInit {
    
     //fazendo requisicao POST para o endpoint de cadastro de produtos
     this.httpClient.put(`${environment.apiProdutos}/produtos`,
-    this.form.value, {responseType: 'text'})
+    this.form.value, {responseType: 'text', headers: getAuthorization()})
     .subscribe({
       next: (data) => {
        //capturando a mensagem obtida da api
@@ -104,7 +105,7 @@ export class EdicaoProdutosComponent implements OnInit {
       }
     });
   }
-
+ 
 
 }
 
